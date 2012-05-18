@@ -1,0 +1,1195 @@
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+NVIDIA GPU Computing Software Development Kit
+CUDA SDK 4.2 Release Notes
+R295 and R300 Release Driver
+
+  Windows XP, Windows Vista, and Windows 7 (32/64-bit)
+  Windows Server 2003, 2003 R2, 2008, 2008 R2
+  Linux OS (32/64-bit)
+  Mac OSX  (10.5.x Leopard 32/64-bit, 10.6.x SnowLeopard 32/64-bit, 10.7.x Lion 32/64-bit)
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+Please, also refer to the release notes of Release Version 4.2 of the CUDA Toolkit, 
+installed by the CUDA Toolkit installer.
+
+--------------------------------------------------------------------------------
+TABLE OF CONTENTS
+--------------------------------------------------------------------------------
+I.  (a) Windows Installation Instructions
+I.  (b) Linux Installation Instructions
+I.  (c) Mac OSX Installation Instructions
+
+II. (a) Creating Your Own CUDA Projects for Windows 
+II. (b) Creating Your Own CUDA Projects for Linux
+II. (c) Creating Your Own CUDA Projects for Mac OSX
+
+III.(a) Known Issues on CUDA for Windows
+III.(b) Known Issues on CUDA for Linux
+III.(c) Known Issues on CUDA for Mac OSX
+
+IV.  Frequently Asked Questions
+V.   Addendum
+VI.  Change Log
+VII. OS Platforms and Compilers Supported
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+I. (a)   Windows Installation Instructions
+--------------------------------------------------------------------------------
+	0. CUDA 4.2 Release Toolkit requires version R295, R300, or newer of the Windows Vista or 
+	   Windows XP NVIDIA Display Driver. See the NVIDIA CUDA Toolkit 4.2 Release 
+	   Notes for more detailed  information.
+
+	   Please make sure to read the Driver Installation Hints Document before you 
+	   install the driver:
+	   http://www.nvidia.com/object/driver_installation_hints.html
+
+	1. Uninstall any previous versions of the NVIDIA CUDA Toolkit and NVIDIA GPU Computing SDK.
+	   You can uninstall the NVIDIA CUDA Toolkit through the Start menu:
+		  Start menu->All Programs->NVIDIA Corporation->CUDA Toolkit->Uninstall CUDA
+	      
+	   You can uninstall the NVIDIA GPU Computing SDK through the Start menu:
+		  Start menu->All Programs->NVIDIA Corporation
+					  ->NVIDIA GPU Computing SDK->Uninstall NVIDIA GPU Computing SDK
+
+	2. Install version 4.2 Release of the NVIDIA CUDA Toolkit by running
+	   cudatoolkit_4.2_Win_[32|64].exe corresponding to your operating
+	   system.
+
+	3. Install version 4.2 Release of the NVIDIA GPU Computing SDK by running
+	   gpucomputingsdk_4.2_Win_[32|64].exe corresponding to your operating
+	   system.
+
+	4. Build the 32-bit and/or 64-bit, release or debug
+	   configurations of the SDK project examples using the provided 
+	   *_vs2005.sln solution files for Microsoft Visual Studio 2005 or 
+	   *_vs2008.sln solution files for Microsoft Visual Studio 2008 or
+	   *_vs2010.sln solution files for Microsoft Visual Studio 2010
+	   You can:
+		  - either use the solution files located in each of the example
+			directories in "NVIDIA GPU Computing SDK 4.2\C\src",
+		  - or use the global solution files located under "NVIDIA GPU Computing SDK 4.2\C\src"
+		      
+			  "release_vs2005.sln"
+			  "release_vs2008.sln"
+			  "release_vs2010.sln"
+	   
+	   Notes:
+	   
+		  - The simpleD3D9 example requires to have a Direct3D SDK installed and the
+			VC++ directory paths (located in Tools->Options...) properly setup.
+	      
+		  - Most samples link to a utility library called "cutil" whose source code
+			is in "NVIDIA GPU Computing SDK 4.2\C\common". The release versions of
+			these samples link to cutil[32|64].lib and dynamically load
+		cutil[32|64].dll. The debug versions of these samples link
+		to cutil[32D|64D].lib and dynamically load cutil[32D|64D].dll.
+			In order to build the 32-bit and/or 64-bit, release and/or debug configurations
+		of the cutil library, use the solution files located in
+			"NVIDIA GPU Computing SDK 4.2\C\common". The output of the compilation goes to
+			"NVIDIA GPU Computing SDK 4.2\C\common\lib":
+			 - cutil[32|64].lib and cutil[32D|64D].lib are the release and debug
+		   import libraries,
+			 - cutil[32|64].dll and cutil[32D|64D].dll are the release and debug
+			   dynamic-link libraries, which get also copied to
+			   "NVIDIA GPU Computing SDK 4.2\C\bin\win[32|64]\[release]" and
+			   "NVIDIA GPU Computing SDK 4.2\C\bin\win[32|64]\[debug]"
+		   Respectively;
+
+	5. Run the examples from the release or debug directories 
+	   located in "NVIDIA GPU Computing SDK 4.2\C\bin\win[32|64]\[release|debug]".
+	   
+	   Notes:
+	   
+		- The release and debug configurations require a CUDA-capable GPU to run
+		  properly (see Appendix A.1 of the CUDA Programming Guide for a complete
+		  list of CUDA-capable GPUs).
+	      
+--------------------------------------------------------------------------------
+I. (b)  Linux Installation Instructions
+--------------------------------------------------------------------------------
+[Part 1/2]
+
+	Note: The default installation folder <SDK_INSTALL_PATH> is "~/NVIDIA_GPU_Computing_SDK"
+
+	For more detailed instructions, see section II below.
+
+	0. Install the NVIDIA Linux display driver by executing the file
+
+	   a. For 32-bit linux distributions use:
+		  cudadriver_4.2_linux_32_295.xx.run    or
+		  cudadriver_4.2_linux_32_300.xx.run
+
+	   b. For 64-bit linux distributions use:
+		  cudadriver_4.2_linux_64_295.xx.run    or
+		  cudadriver_4.2_linux_64_300.xx.run
+	  
+	   For information on installing NVIDIA Linux display drivers, please refer to 
+	   the NVIDIA Accelerated Linux Driver Set README and Installation Guide:
+	   http://us.download.nvidia.com/XFree86/Linux-x86/1.0-9755/README/index.html
+
+	1. Install version 4.2 Release of the NVIDIA Toolkit by executing the file
+	   cudatoolkit_4.2_linux_*.run where * corresponds to your Linux distribution
+
+	   Add the CUDA binaries and lib path to your PATH and LD_LIBRARY_PATH 
+	   environment variables.
+
+	2. Install version 4.2 Release of the NVIDIA GPU Computing SDK by executing the file 
+	   gpucomputingsdk_4.2_linux.run
+
+	   The installer will prompt you to enter an installation path for the SDK or
+	   accept the default.  We will refer to the path you choose as 
+	   SDK_INSTALL_PATH.
+	   
+	3. Build the SDK project examples.  
+
+		cd <SDK_INSTALL_PATH>/C
+		make
+
+	   Note Adding the following in make will build for specific targets
+	 
+			make x86_64=1     (for 64-bit targets)
+			make i386=1       (for 32-bit targets)
+	    
+	4. Run the examples (32-bit or 64-bit Linux)
+	    
+		cd <SDK_INSTALL_PATH>/C/bin/linux/release
+			matrixmul
+
+	   (or any of the other executables in that directory)
+
+	See the next section for more details on installing, building, and running
+	SDK samples.
+
+[Part 2/2]
+	Note: The default installation folder <SDK_INSTALL_PATH> is "~/NVIDIA_GPU_Computing_SDK"
+
+	This package consists of a ".run" file. This is a self-extracting archive that
+	decompresses its contents to a temporary folder and then installs the contents 
+	The archive is:
+
+	gpucomputingsdk_4.2_linux.run: NVIDIA GPU Computing SDK Installer 
+
+	In addition, a NVIDIA Linux Display driver is needed to run CUDA code on an 
+	NVIDIA GPU.  CUDA 4.2 Release requires version 295, 300 or newer version of the linux 
+	NVIDIA Display Driver.  Please see the NVIDIA CUDA Toolkit 4.2 Release notes 
+	for more details.
+
+	   For information on installing NVIDIA Linux display drivers, please refer to 
+	   the NVIDIA Accelerated Linux Driver Set README and Installation Guide:
+	   http://us.download.nvidia.com/XFree86/Linux-x86/1.0-9755/README/index.html
+
+	1. Install version 4.2 Release of the NVIDIA CUDA Toolkit by executing the file
+		 cudatoolkit_4.2_linux_*.run where * corresponds to your Linux distribution
+
+	   To install, run the cudatoolkit_4.2_linux_*.run script.  You will be prompted
+	   for the path to where you want to put the CUDA files. In the following we will 
+	   call this path <CUDA_INSTALL_PATH>. It is recommended that you run the 
+	   installer as root and use the default install path (/usr/local). 
+
+	   Make sure that you add the location of the CUDA binaries (such as nvcc) to 
+	   your PATH environment variable and the location of the CUDA libraries
+	   (such as libcuda.so) to your LD_LIBRARY_PATH environment variable.
+
+	   In the bash shell, one way to do this is to add the following lines to the 
+	   file ~/.bash_profile from your home directory.
+
+	   a. For 32-bit operating systems use the following paths 
+		PATH=$PATH:<CUDA_INSTALL_PATH>/bin
+		LD_LIBRARY_PATH=$LD_LIBRARY_PATH:<CUDA_INSTALL_PATH>/lib
+	    
+	   b. For 64-bit operating systems use the following paths
+		PATH=$PATH:<CUDA_INSTALL_PATH>/bin
+		LD_LIBRARY_PATH=$LD_LIBRARY_PATH:<CUDA_INSTALL_PATH>/lib64
+
+	   Then to export the environment variables add this to the profile configuration
+		export PATH
+		export LD_LIBRARY_PATH
+	 
+	2. Install the NVIDIA GPU Computing SDK by executing the file gpucomputingsdk_4.2_linux.run
+
+	   To install, run the gpucomputingsdk_4.2_linux.run script.  You will 
+	   be prompted for the path to where you want to put the CUDA SDK.  You can 
+	   regard the CUDA SDK as user code (it is a set of examples), and therefore
+	   the default installation is in the current user's home directory 
+	   (~/NVIDIA_GPU_Computing_SDK). You must either accept the default or specify a path
+	   to which the user has write permissions. 
+
+	   We will refer to the path you choose as SDK_INSTALL_PATH below.
+	   
+	3. Build the SDK project examples.  
+		a. cd <SDK_INSTALL_PATH>/C
+		b. Build:
+			- release    configuration by typing "make".
+			- debug      configuration by typing "make dbg=1".
+			- x86_64=1   configuration by typing "make x86_64=1"
+			- i386=1     configuration by typing "make i386=1"
+
+		Running make at the top level first builds libcutil, a utility library used
+		by the SDK examples (libcutil is simply for convenience -- it is not a part
+		of CUDA and is not required for your own CUDA programs).  Make then builds
+		each of the projects in the SDK.  
+
+		NOTES:
+		- The release and debug configurations require a CUDA-capable GPU to run
+		  properly (see Appendix A.1 of the CUDA Programming Guide for a complete
+		  list of CUDA-capable GPUs).
+
+		- To build just libcutil, type "make" (or "make dbg=1") in the "common" 
+		  subdirectory:
+
+			cd <SDK_INSTALL_PATH>/C/common
+			make
+
+	4. Run the examples from the release or debug
+	   directories located in 
+
+			<SDK_INSTALL_PATH>/C/bin/linux/[release|debug].
+
+--------------------------------------------------------------------------------
+I. (c) Mac OSX Installation Instructions
+--------------------------------------------------------------------------------
+[Part 1/2]
+
+	For more detailed instructions, see part 2 of this section below.
+
+	Note: The default installation folder <SDK_INSTALL_PATH> is "/Developer/GPU Computing"
+
+        Note: For SnowLeopard, if you need to boot up in 32-bit kernel.  During Power-On, hit keys
+              '3' and '2' immediately after the startp sound, and the OS will startup in a 32-bit 
+			  kernel mode.  To boot up with a 64-bit kernel, during Power-On, hit keys '6' and '4'.
+
+        Please install the packages in this order.
+
+	0. Install version 4.2 Release of the NVIDIA Toolkit package by executing the file
+		  cudatoolkit_4.2_macos.pkg
+
+	   This package will work MAC OSX running 32/64-bit.  
+           CUDA applications built in 32/64-bit (CUDA Driver API) are supported.
+           CUDA applications built as 32/64 bit (CUDA Runtime API) are  supported.
+           (10.5.x Leopard and 10.6 SnowLeopard)
+
+	1. A. Install the NVIDIA Driver Package (Mac OSX Leopard)
+
+	      i.  Do you have a Quadro 4000 for Mac and/or recently updated to the Mac OSX 10.6.6?  
+		      If so, please first install the release 256 driver for Mac.  You can download the
+			  package from here:
+		  
+		  http://www.nvidia.com/object/quadro-macosx-256.01.00f03-driver.html
+		  
+		  ii. For NVIDIA GeForce GPU or Quadro GPUs, install this package:
+                  cudadriver_4.2_macos.pkg
+
+	2. Install version 4.2 Release of the NVIDIA GPU Computing SDK by executing the file 
+	   gpucomputingsdk_4.2_macos.pkg
+
+	3. Build the SDK project examples
+
+		cd <SDK_INSTALL_PATH>
+		make
+
+	   Note: Adding the following in make will build for specific target.  
+	    
+	4. Run the examples:
+	    
+		cd <SDK_INSTALL_PATH>/C/bin/darwin/release
+			./matrixMul
+
+	   (or any of the other executables in that directory)
+
+[Part 2/2]
+
+	See the next section for more details on installing, building, and running
+	SDK samples.
+
+	Note: The default installation folder <SDK_INSTALL_PATH> is "/Developer/GPU Computing"
+
+	1. Build the SDK project examples.  
+		a. Go to <SDK_INSTALL_PATH> ("cd <SDK_INSTALL_PATH>")
+		b. Build:
+			- release    configuration by typing "make".
+			- debug      configuration by typing "make dbg=1".
+			- x86_64=1   configuration by typing "make x86_64=1"
+			- i386=1     configuration by typing "make i386=1"
+
+                Note: x86_64 is not currently working for Leopoard or SnowLeopard
+
+		Running make at the top level first builds libcutil, a utility library used
+		by the SDK examples (libcutil is simply for convenience -- it is not a part
+		of CUDA and is not required for your own CUDA programs).  Make then builds
+		each of the projects in the SDK.  
+
+		NOTES:
+		- The release and debug configurations require a CUDA-capable GPU to run
+		  properly (see Appendix A.1 of the CUDA Programming Guide for a complete
+		  list of CUDA-capable GPUs).
+		- To build just libcutil, type "make" (or "make dbg=1") in the "common" 
+		  subdirectory:
+
+			cd <SDK_INSTALL_PATH>/C/common
+			make
+
+	4. Run the examples from the release or debug
+	   directories located in
+	   
+		 <SDK_INSTALL_PATH>/C/bin/darwin/[release|debug].
+
+
+--------------------------------------------------------------------------------
+II. (a) Creating Your Own CUDA Projects for Windows
+--------------------------------------------------------------------------------
+
+	Creating a new CUDA Program using the NVIDIA GPU Computing SDK infrastructure is easy.
+	We have provided a "template" and "template_runtime" project that you can copy and modify 
+	to suit your needs. Just follow these steps:
+
+	1. Copy the content of "NVIDIA GPU Computing SDK 4.2\C\src\template" or 
+	   "NVIDIA GPU Computing SDK 4.2\C\src\template_runtime"  to a directory of your own 
+	   "NVIDIA GPU Computing SDK 4.2\C\src\myproject"
+
+	2. Edit the filenames of the project to suit your needs.
+
+	3. Edit the *.sln, *.vcproj and source files. Just search and replace all
+	   occurrences of "template" or "template_runtime" with "myproject".
+
+	4. Build the 32-bit and/or 64-bit, release or debug configurations using:
+	
+	   "myproject_vs2005.sln"
+	   "myproject_vs2008.sln"
+	   "myproject_vs2010.sln"
+
+	5. Run myproject.exe from the release or debug
+	   directories located in
+	   "NVIDIA GPU Computing SDK 4.2\C\bin\win[32|64]\[release|debug]".
+
+	6. Now modify the code to perform the computation you require. See the CUDA
+	   Programming Guide for details of programming in CUDA.
+
+--------------------------------------------------------------------------------
+II. (b) Creating Your Own CUDA Projects for Linux
+--------------------------------------------------------------------------------
+
+	Note: The default installation folder <SDK_INSTALL_PATH> is "~/NVIDIA_GPU_Computing_SDK"
+
+	Creating a new CUDA Program using the NVIDIA GPU Computing SDK infrastructure is easy.
+	We have provided a "template" or "template_runtime" project that you can copy and modify to suit your
+	needs. Just follow these steps:
+
+	1. Copy the template or template_runtime project
+
+			cd <SDK_INSTALL_PATH>/C/src
+			cp -r template <myproject>
+
+			or using template_runtime)
+			
+			cd <SDK_INSTALL_PATH>/C/src
+			cp -r template_runtime <myproject>
+			
+	2. Edit the filenames of the project to suit your needs
+
+			mv template.cu myproject.cu
+			mv template_kernel.cu myproject_kernel.cu
+			mv template_gold.cpp myproject_gold.cpp
+
+			or (using template_runtime)
+			
+			mv main.cu myproject.cu
+			
+	3. Edit the Makefile and source files.  Just search and replace all occurrences 
+	   of "template" or "template_runtime" with "myproject".
+
+	4. Build the project
+
+			make
+
+	   You can build a debug version with "make dbg=1".
+
+	5. Run the program
+
+			../../C/bin/linux/release/myproject
+
+	6. Now modify the code to perform the computation you require.  See the
+	   CUDA Programming Guide for details of programming in CUDA.
+
+--------------------------------------------------------------------------------
+II. (c) Creating Your Own CUDA Projects for Mac OSX
+--------------------------------------------------------------------------------
+
+	Note: The default installation folder <SDK_INSTALL_PATH> is "/Developer/GPU Computing"
+
+	Creating a new CUDA Program using the NVIDIA GPU Computing SDK infrastructure is easy.
+	We have provided a "template" project that you can copy and modify to suit your
+	needs. Just follow these steps:
+
+	1. Copy the template project
+
+			cd <SDK_INSTALL_PATH>/C/src
+			cp -r template <myproject>
+
+	2. Edit the filenames of the project to suit your needs
+
+			mv template.cu myproject.cu
+			mv template_kernel.cu myproject_kernel.cu
+			mv template_gold.cpp myproject_gold.cpp
+
+	3. Edit the Makefile and source files.  Just search and replace all occurrences 
+	   of "template" with "myproject".
+
+	4. Build the project
+
+			make
+
+	   You can build a debug version with "make dbg=1".
+	5. Run the program
+
+			../../C/bin/darwin/release/myproject
+
+	   (It should print "PASSED")
+
+	6. Now modify the code to perform the computation you require.  See the
+	   CUDA Programming Guide for details of programming in CUDA.
+
+--------------------------------------------------------------------------------
+III. (a) Known Issues on CUDA SDK for Windows
+--------------------------------------------------------------------------------
+
+	Note: Please see the CUDA Toolkit release notes for additional issues.
+	   
+	1. In code sample alignedTypes, the following aligned type does not provide
+	   maximum throughput because of a compiler bug:
+		   typedef struct __align__(16) { 
+			   unsigned int r, g, b; 
+		   } RGB32;
+	   The workaround is to use the following type instead:
+		   typedef struct __align__(16) { 
+			   unsigned int r, g, b, a; 
+		   } RGBA32;
+	   as illustrated in the sample.
+
+	2. By default the CUDA 4.2 SDK will be installed to "ProgramData\NVIDIA Corporation\NVIDIA GPU Computing SDK 4.2", 
+	   so it will not have conflicts with Vista with UAC.
+	   
+	   By default, UAC is enabled for Vista.  If UAC is disabled, the user is free to install the 
+	   SDK in other folders.
+
+	   Before the CUDA 2.1, the SDK installations path would be under:
+	   "Program Files\NVIDIA Corporation\NVIDIA CUDA SDK".  
+
+	   Starting with CUDA 2.1, the new default installation folder is:
+	   "Application Data\NVIDIA Corporation\NVIDIA CUDA SDK" residing under "All Users" or "Current".  
+
+	   For NVIDIA GPU Computing 4.2 Release, the SDK installations path would be under:
+	   "ProgramData\NVIDIA Corporation\NVIDIA GPU Computing SDK 4.2".  
+
+	   Starting with NVIDIA GPU Computing 4.2 Release, the new default installation folder is:
+	   "ProgramData\NVIDIA Corporation\NVIDIA GPU Computing SDK 4.2" residing under "All Users" or "Current".  
+
+	3. There are number of samples that are not pre-build with the CUDA SDK.  Why are these samples not pre-built?
+           cudaOpenMP, simpleMPI, VFlockingD3D10, ExcelCUDA2007, ExcelCUDA2010
+
+           The samples may depend on other header and library packages to be installed on the development machine.  
+           The CUDA SDK does not distribute these, hence these are not pre-built.
+
+        4. The following Direct3D samples are not officially supported on Telsa GPU:
+
+            cudaDecodeD3D9, fluidsD3D9, 
+            simpleD3D9,  simpleD3D9Texture, 
+            simpleD3D10, simpleD3D10Texture, 
+            simpleD3D11Texture, vFlockingD3D10
+ 
+           These samples will not run and report that a Direct3D device is not available.
+                    
+--------------------------------------------------------------------------------
+III. (b) Known Issues on  CUDA SDK for Linux
+--------------------------------------------------------------------------------
+
+	Note: Please see the CUDA Toolkit release notes for additional issues.
+
+	1. The SDK samples that make use of OpenGL fail to build or link.  This is because many of the default
+       installations for many Linux distributions do not include the necessary OpenGL, GLUT, GLU, GLEW, 
+	   X11, Xi, Xlib, or Xmi headers or libraries.  Here are some general and specific solutions:
+
+       (a) Redhat 4 Linux Distributions
+	       "ld: cannot find -lglut".  On some linux installations, building the simpleGL example 
+		   show the following linking error like the following.
+
+			/usr/bin/ld: cannot find -lglut
+
+	        Typically this is because the SDK makefiles look for libglut.so and not for
+	        variants of it (like libglut.so.3). To confirm this is the problem, simply 
+	        run the following command.
+
+			ls /usr/lib | grep glut
+
+			ls /usr/lib64 | grep glut
+
+	        You should see the following (or similar) output.
+
+		    lrwxrwxrwx  1 root root     16 Jan  9 14:06 libglut.so.3 -> libglut.so.3.8.0
+		    -rwxr-xr-x  1 root root 164584 Aug 14  2004 libglut.so.3.8.0
+
+	        If you have libglut.so.3 in /usr/lib and/or /usr/lib64, simply run the following command 
+	        as root.
+
+			ln -s /usr/lib/libglut.so.3 /usr/lib/libglut.so
+			ln -s /usr/lib64/libglut.so.3 /usr/lib64/libglut.so
+
+	        If you do NOT have libglut.so.3 then you can check whether the glut package
+	        is installed on your RHEL system with the following command.
+
+			rpm -qa | grep glut
+
+	        You should see "freeglut-2.2.2-14" or similar in the output.  If not, you 
+	        or your system administrator should install the package "freeglut-2.2.2-14".
+	        Refer to the Red Hat and/or rpm documentation for instructions.
+
+	        If you have libglut.so.3 but you do not have write access to /usr/lib, you 
+	        can also fix the problem by creating the soft link in a directory to which 
+	        you have write permissions and then add that directory to the library 
+	        search path (-L) in the Makefile.
+        
+		(b) Some Linux distributions (i.e. Redhat or Fedora) do not include the GLU library.  
+		    You can find the latest packages download this file from this website.  Please 
+			make sure you match the correct Linux distribution.
+
+	         http://fr.rpmfind.net/linux/rpm2html/search.php?query=libGLU.so.1&submit=Search+...
+
+        (c) (SLED11) SUSE Linux Enterprise Edition 11 is missing:
+	        "libGLU", "libX11" "libXi", "libXm" 
+
+	        This particular version of SUSE Linux 11 does not have the proper symbolic links for the following libraries:
+
+	        i.   libGLU
+			
+			     ls /usr/lib | grep GLU
+		         ls /usr/lib64 | grep GLU
+
+		         libGLU.so.1
+		         libGLU.so.1.3.0370300
+
+		         To create the proper symbolic links (32-bit and 64-bit OS)
+		       
+			     ln -s /usr/lib/libGLU.so.1 /usr/lib/libGLU.so  
+		         ln -s /usr/lib64/libGLU.so.1 /usr/lib64/libGLU.so  
+
+	        ii.  libX11
+			
+		         ls /usr/lib | grep X11
+		         ls /usr/lib64 | grep X11
+ 
+		         libX11.so.6
+		         libX11.so.6.2.0
+
+		         To create the proper symbolic links  (32-bit and 64-bit OS)
+		        
+				 ln -s /usr/lib/libX11.so.6 /usr/lib/libX11.so 
+		         ln -s /usr/lib64/libX11.so.6 /usr/lib64/libX11.so 
+
+	        iii. libXi
+			
+		         ls /usr/lib | grep Xi
+		         ls /usr/lib64 | grep Xi
+
+		         libXi.so.6
+		         libXi.so.6.0.0
+
+		         To create the proper symbolic links (32-bit and 64-bit OS)
+
+		         ln -s /usr/lib/libXi.so.6  /usr/lib/libXi.so 
+		         ln -s /usr/lib64/libXi.so.6  /usr/lib64/libXi.so 
+
+	        iv.  libXm
+			
+		         ls /usr/lib | grep Xm
+		         ls /usr/lib64 | grep Xm
+
+		         libXm.so.6
+		         libXm.so.6.0.0
+
+		         To create the proper symbolic links (32-bit and 64-bit OS)
+
+		         ln -s /usr/lib/libXm.so.6  /usr/lib/libXm.so 
+		         ln -s /usr/lib64/libXm.so.6  /usr/lib64/libXm.so 
+
+
+	    (d) Ubuntu Linux unable to build these SDK samples that use OpenGL
+
+	        The default Ubuntu distribution is missing many libraries
+	   
+	        i.  What is missing are the GLUT, Xi, Xmu, GL, and X11 headers.  To add these headers and 
+			    libraries to your distribution, type the following in at the command line.
+ 
+	            sudo apt-get install freeglut3-dev build-essential libx11-dev libxmu-dev libxi-dev libgl1-mesa-glx libglu1-mesa libglu1-mesa-dev 
+	   
+            ii. Note, by installing Mesa, you may see linking errors against libGL.  This can be solved below:
+	   
+            cd /usr/lib/
+            sudo rm libGL.so 
+            sudo ln -s libGL.so.1 libGL.so
+	
+	2. In code sample alignedTypes, the following aligned type does not provide
+	   maximum throughput because of a compiler bug:
+		   typedef struct __align__(16) { 
+			   unsigned int r, g, b; 
+		   } RGB32;
+		   
+	   The workaround is to use the following type instead:
+		   typedef struct __align__(16) { 
+			   unsigned int r, g, b, a; 
+		   } RGBA32;
+	   as illustrated in the sample.
+
+	3. Unable to build simpleMPI sample on Linux Distros
+          "simpleMPI.cpp:35:17: error: mpi.h: No such file or directory"
+
+	   The linux system is missing the libraries and headers for MPI.
+
+           a. For OpenSuSE or RedHat distributions 
+              - Search http://www.rpmfind.net for "openmpi-devel" for your specific distribution
+
+              For Ubuntu or Debian distributions, using "apt-get"
+              - sudo apt-get install build-essential openmpi-bin openmpi-dev
+
+           b. For 32-bit linux distributions
+
+              ln -s /usr/lib/mpi/gcc/openmpi/lib/libmpi_cxx.so.0 /usr/lib/libmpi_cxx.so
+              ln -s /usr/lib/mpi/gcc/openmpi/lib/libmpi.so.0 /usr/lib/libmpi.so
+              ln -s /usr/lib/mpi/gcc/openmpi/lib/libopen-rte.so.0 /usr/lib/libopen-rte.so
+              ln -s /usr/lib/mpi/gcc/openmpi/lib/libopen-pal.so.0 /usr/lib/libopen-pal.so
+
+           c. For 64-bit linux distributions
+
+              ln -s /usr/lib64/mpi/gcc/openmpi/lib64/libmpi_cxx.so.0 /usr/lib64/libmpi_cxx.so
+              ln -s /usr/lib64/mpi/gcc/openmpi/lib64/libmpi.so.0 /usr/lib64/libmpi.so
+              ln -s /usr/lib64/mpi/gcc/openmpi/lib64/libopen-rte.so.0 /usr/lib64/libopen-rte.so
+              ln -s /usr/lib64/mpi/gcc/openmpi/lib64/libopen-pal.so.0 /usr/lib64/libopen-pal.so
+
+	4. Fedora 13 or 14 will have linking error when building samples:
+          MonteCarloMultiGPU, simpleMultiGPU, threadMigration.
+	   
+	   The following error is seen:
+
+	   make -C src/threadMigration/ 
+	   make[1]: Entering directory `/root/sdk/C/src/threadMigration'
+	   /usr/bin/ld: obj/i386/release/threadMigration.cpp.o: undefined reference to symbol 'pthread_create@@GLIBC_2.1'
+	   /usr/bin/ld: note: 'pthread_create@@GLIBC_2.1' is defined in DSO /lib/libpthread.so.0 so try adding it to the linker command line
+	   /lib/libpthread.so.0: could not read symbols: Invalid operation
+	   collect2: ld returned 1 exit status
+	   make[1]: *** [../../bin/linux/release/threadMigration] Error 1
+	   make[1]: Leaving directory `/root/sdk/C/src/threadMigration'
+	   make: *** [src/threadMigration/Makefile.ph_build] Error 2
+
+	   For these linux distributions: Fedora 13 or 14, symbolic links are missing from the following 
+	   libraries:
+	   a. libpthread
+
+		  To create the proper symbolic links (32-bit OS and 64-bit OS) type this:
+
+		  ln -s /usr/lib/libpthread.so.0 /usr/lib/libpthread.so  
+		  ln -s /usr/lib64/libpthread.so.0 /usr/lib64/libpthread.so  
+ 
+	   
+
+--------------------------------------------------------------------------------
+III. (c) Known Issues on CUDA SDK for Mac OSX
+--------------------------------------------------------------------------------
+
+  Note: In addition, please look at the CUDA Toolkit 4.2 Release notes for additional issues.
+
+  - With release CUDA 4.0, Mac OSX is now supported with 10.7.x (Lion)
+  
+  - With release CUDA 3.1, Mac OSX now supports CUDA Runtime API (with 64-bit applications)
+
+  - CUDA 3.1 Beta and newer now supports 10.6.3 (Snow Leopard) 64-bit Runtime API.
+  
+  - For CUDA 3.0, Note on CUDA Mac 10.5.x (Leopard) or 10.6.x (Snow Leopard).
+    CUDA applications built with the CUDA driver API can run as either 32/64-bit applications.  
+    CUDA applications using CUDA Runtime APIs can only be built on 32-bit applications.
+
+
+--------------------------------------------------------------------------------
+IV. Frequently Asked Questions
+--------------------------------------------------------------------------------
+
+The Official CUDA FAQ is available online on the NVIDIA CUDA Forums:
+http://forums.nvidia.com/index.php?showtopic=84440
+
+Note: Please also see the CUDA Toolkit release notes for additional Frequently 
+
+Asked Questions.  
+
+--------------------------------------------------------------------------------
+V. Addendum
+--------------------------------------------------------------------------------
+
+Important note about the use of “volatile” in warp-synchronous code:
+The optimized code in the samples “reduction”, “radixSort”, and “scan” uses a technique known 
+as "warp-synchronous" programming, which relies on the fact that within a warp of threads 
+running on a CUDA GPU, all threads execute instructions synchronously.  The code uses this to 
+avoid __syncthreads() when threads within a warp are sharing data via __shared__ memory.  
+It is important to note that for this to work correctly without race conditions on all GPUs, the 
+shared memory used in these warp-synchronous expressions must be declared "volatile".  
+If it is not declared volatile, then in the absence of __syncthreads(), the compiler is free to 
+delay stores to __shared__ memory and keep the data in registers (an optimization technique),
+which will result in incorrect execution.  So please heed the use of "volatile" in these samples
+and use it in the same way in any code you derive from them.
+
+--------------------------------------------------------------------------------
+VI.  Change Log
+--------------------------------------------------------------------------------
+
+Note: These Change Logs apply to all OS platforms unless explicitly repoted
+
+Release 4.2 (R295 and R300 Release Driver Update)
+[All OSs]
+* Added segmentationTreeThrust
+* Updated Makefiles and Projects to enable native support for Kepler GPU architectures (SM 3.0)
+
+Release 4.1 (R285 Release Driver Update)
+[All OSs]
+* Moved EstimatePiP, EstimatePiQ, EstimatePiInlineP, EstimatePiInlineQ, and SingleAsianOptionP from CUDA C to the CUDALibraries 
+* Added MersenneTwisterGP11213 (computation of MersenneTwister using CURAND), this has been added to the CUDALibraries
+* Removed older CUDA SDK sample MerseeneTwister (MT607)
+* Moved randomFog from CUDA C src folder to CUDALibraries.  This sample uses CURAND
+* Several of the CUDA C SDK samples have been restructed so they are self contained and no longer depend and no longer 
+  link with CUTIL or SHRUTIL libraries
+
+Release 4.1 RC1 (R285 Beta Driver)
+[All OSs]
+* Added HSOpticalFlow (Horn-Schunck Method for Optical Flow)
+* Added volumeFiltering (CUDA 3D Volume Filtering)
+* Added simpleCubemapTexture (SDK sample demonstrating how to use texcubemap fetch instruction in CUDA C)
+* Added simpleAssert (SDK Sample demonstrating how to use the GPU assert function)
+* Added grabcutNPP (SDK Sample that demonstrates how to use the Graph Cut functions within the NPP Library)
+
+Release 4.0 Final (R270 Release Driver Update)
+[All OSs]
+* nBody SDK sample can now support multiple GPUs through new CUDA 4.0's new API for multi-GPU support.
+* Added 2 new documents to the Documentation:
+  "CUDA_SDK_New_Features_Guide.pdf"
+  "Getting_Started_With_CUDA_SDK_Samples.pdf"
+* Updated CUDA and CUDALibraries individual SDK sample solution files (*.sln) for VS2005, VS2008, and VS2010.  
+  Now the individual solutions include project dependencies with SDK helper libraries.  If a SDK sample
+  depend on linking with shrUtils or cutil, the individual SDK samples can now be built without using 
+  Release_vs20??.sln to properly build its dependencies.
+
+[Windows OS]
+* Visual Studio 2010 projects for CUDA C, CUDALibraries, and OpenCL are now included with the GPU Computing SDK.
+
+Release 4.0 RC2 (R270 Release Driver Update)
+[All OSs]
+* Added simpleP2P SDK sample to illustrate how to use P2P and UVA.  This requires a Tesla GPU with SM 2.0 
+  (Tesla C2050/C2070).  For Windows Vista/Win7, it must be running 64-bit and two or more GPUs must be 
+  running the TCC driver.  With linux, the standard driver will work on a Tesla GPU with SM 2.0 capabilities.
+* CUDA SDK samples that use the Driver API now use the new cuLaunchKernel API. 
+
+[Windows OS]
+* 49 of the CUDA C SDK samples include VS2010 projects for some of the projects.  All of the remaining    
+  samples will support Visual Studio 2010
+
+Release 4.0 RC1 (R270 Release Driver Update)
+[All OS]
+* Changes to lineOfSight, marchingCubes, radixSort, particles, smokeParticles to use Thrust library (now included as part of the CUDA 4.0 Toolkit)
+  The SDK sample radixSort has been renamed to radixSortThrust with this change to use Thrust.
+  CUDPP libraries, headers, have been removed from the SDK.  Thrust headers are now part of the CUDA Toolkit and are used by these SDK samples.
+* Updated MonteCarloMultiGPU SDK sample to illlustrate the new CUDA 4.0 method for Multi-GPU programming.  The sample has the ability to launch kernels on
+  multiple GPUs through a single CPU thread.
+* Updated Simple Multi-GPU SDK sample to illustrate how to the new CUDA 4.0 method for CUDA context management and multi-threaded access to CUDA contexts.
+* Updated matrixMul, simpleCUBLAS, batchCUBLAS SDK Sample to illustrate how to use the new CUDA 4.0 CUBLAS API interface.
+* Added template_runtime, simple project that shows how to develop a CUDA project without the use of helper libraries or functions (i.e. cutil, shrUtil).
+* Added conjugateGradientPrecond (sample showing how to implement a preconditioned conjugate gradient solver with CUBLAS and CUSPARSE).
+* Added newdelete (sample that demonstrates GPU device memory alloc/free using C++).
+* Added NPP SDK samples: boxFilterNPP, freeImageInteropNPP, histEqualizationNPP, imageSegmentationNPP
+* Updated simpleSTreams SDK sample that demonstrates CUDA 4.0 capability of supporting generic pinning of system memory
+* Added simpleLayeredTexture (sample that demonstrates how to use a new CUDA 4.0 feature to support texture arrays in CUDA).
+* Updated ExcelCUDA2007 and ExcelCUDA2010 projects so they will build out of the box.  ExcelCUDA2007 includes the necessary header/library files to build.
+  ExcelCUDA2010 requires the Microsoft Excel 2010 SDK which can be downloaded from the Microsoft developer website.
+
+[Windows]
+* Updated cudaEncode (H.264 Encode Sample) to support true 64-bit support of Device Pointers (CUdevicePtr)
+* Updated cudaDecodeD3D9 and cudaDecodeGL samples to support 64-bit support of Device Pointers (CUdevicePtr)
+
+Release 3.2 Release (R260 Release Driver Update)
+[All OS]
+* Added randomFog, uses CURAND to generate random values for Fog
+* Added simpleSurfaceWrite, demonstrates how to write a CUDA kernel that handles Surface Writes
+
+[Windows]
+* The cudaDecodeGL handles multi-GPU configurations and can enumerate which one is a WDDM and TCC
+  device.  Support to explicitly specify a GPU for decoding has also been added.
+* The cudaEncode sample has been wrapped into a VideoEncoder class for ease of use.  GPU Device 
+  Memory Input support has also been added, as well as support for other YUV formats for input 
+  (YUY2, UYVY, YV12, NV12, IYUV).
+* Fixes cudaDecodeGL and cudaDecodeD3D9 sample so the 64-bit builds work with visualization (using 32-bit builds/device pointers)
+  Added support for better handling of multiple-GPU devices.  Developers can now specify which GPU to run the decoding on.
+
+Release 3.2 Beta (R260 Beta Driver Update)
+[Windows]
+* CUDA SDK Visual Studio projects have been revised to use environment variables $(CUDA_PATH) to reference the 
+  CUDA Toolkit Installation path, includes, and compiler.  The CUDA Tookit also installs NvCudaDriverAPI.rules
+  and NvCudaRuntimeApi.rules to refer to rules files which are versioned: NvCudaDriverApi.v3.2.rules and 
+  NvCudaRuntimeApi.v.3.2.rules.  To help with development migration from CUDA 3.1 to CUDA 3.2, the environment 
+  paths CUDA_BIN_PATH, CUDA_INC_PATH, and CUDA_LIB_PATH are defined and set by the CUDA 3.2 toolkit.
+
+  Please refer to the Getting_Started_Windows.pdf on windows and the CUDA toolkit release notes for
+  more details in the CUDA Toolkit release notes.
+
+* Added cudaEncode sample which demonstrates CUDA GPU accelerated video encoding of YUV to H.264 surface
+* Added SLI D3D10 Texture sample that demonstrates improved performance for multi-GPU configurations.
+* Added Interval Computing sample (illustrates how to use Recursion on Fermi Architecture)
+* Added VFlocking (not-pre built) sample demonstrating a CUDA simulation of bird flocking behavior.
+
+[All OS]
+* Added MonteCarloCURAND samples for estimation of MonteCarlo Simulation with the NIVIDA CURAND libraries
+     MonteCarloCURAND\EstimatePiInlineP
+     MonteCarloCURAND\EstimatePiInlineQ
+     MonteCarloCURAND\EstimatePiP
+     MonteCarloCURAND\EstimatePiQ
+	 MonteCarloCURAND\SingleAsianOptionP
+* Add bilateralFiltering sample
+* Add conjugateGradient solver on the GPU using CUBLAS and CUSPARSE libraries
+* Add simplePrintf (shows how to call cuprintf through device code)
+* Updated DeviceQuery/DeviceQueryDrv samples to support determine if ECC/TCC is enabled for Tesla devices
+
+* Added FunctionPointers (version of SobelFilter) sample, requires GPU based on Fermi architecture
+* Updated BicubicTexture sample to include Catmull Rom
+
+Release 3.1 Final (R256 Driver Update)
+* Add support for 64-bit CUDA runtime for Mac OSX 10.6.3
+* Added FunctionPointers (version of SobelFilter) sample, requires GPU based on Fermi architecture
+* Updated BicubicTexture sample to include Catmull Rom
+* Added excelCUDA - demonstrates how create an Excel plugin that can run CUDA kernels
+
+Release 3.0 Final
+* Replaced 3dfd sample with FDTD3d (Finite Difference sample has been updated)
+* Added support for Fermi Architecture (Compute 2.0 profile) to the SDK samples
+* Updated Graphics/CUDA samples to use the new unified graphics interop
+* Several samples with Device Emulation have been removed.  Device Emulation is 
+  deprecated for CUDA 3.0, and will be removed with CUDA 3.1.
+* Added new samples:
+   concurrentKernels (Fermi feature) - how to run more than 1 CUDA kernel simultaneously
+   simpleMultiCopy (Fermi feature)   - exercises simulteaneous copy, compute, readback.  
+                                     - GeForce has 1 copy engine, and Quadro/Tesla have 2 copy engines
+   simpleD3D11Texture - demonstrates Direct3D11 and CUDA interop
+* Bug Fixes
+
+Release 3.0 (R195 Beta 1 Release Update)
+* Minor updates to the CUDA SDK samples
+* Support for shrUtils (shared utilities, useful for logging information)
+
+Release 2.3 (R190 Release Update)
+* New SDK Samples
+  - vectorAdd, vectorAddDrv - Two samples (Runtime and Driver API) which 
+    implements element by element vector addition.  These simple samples do
+    not use the CUTIL library.
+
+[Linux SDK]
+* Support for Cross Compilation
+  - Adding the following during Make will build for specific targets
+     x86_64=1     (for 64-bit targets)
+     i386=1       (for 32-bit targets)
+  - Note on Linux, the 190.18 or newer driver installs the necessary libcuda.so for both 32-bit and 64-bit targets.
+
+Release 3.0 Beta 1
+* New Samples
+  - 3DFD - 3D Finite Difference sample demonstrates 3DFD stencil computation on a regular grid.
+  - matrixMulDynlinkJIT - Matrix Multiply sample that uses PTXJIT (inlined) and also supports dynamic linking to nvcuda.dll
+  - bitonicSort has been renamed to sortingNetworks
+  - histogram64 and histogram256 have been combined to a single project histogram
+* Removed 
+  - scanLargeArray removed from the SDK, consolidated to scan
+  
+Release 3.0 Beta 1 Beta
+* Added PTXJIT
+  - New SDK sample that illustrates how to use cuModuleLoadDataEx 
+  - Loads a PTX source file from memory instead of file.
+* Windows SDK only
+  - Changing the name NVIDIA CUDA SDK -> NVIDIA GPU Computing SDK
+  - Added cudaDecodeD3D9 and cudaDecodeGL
+    - NVCUVID now support for OpenGL interop, these two new SDK samples 
+	  illustrates how to use NVCUVID to decode MPEG-2, VC-1, or H.264 content.
+    - The samples show how to decode video and pass to D3D9 or OpenGL, 
+	  however these samples do not display the decoded video frames.
+  
+Release 2.2.1
+[Windows SDK]
+	* Updated Cuda.Rules files (no long uses -m32) to generate CUBIN/PTX output,
+	* Cuda.rules option to generate PTX and to inline CUDA source with PTX 
+	  generated assembly
+[Mac and Linux SDK]
+	* Updated common.mk file to removed -m32 when generating CUBIN output
+	* Support for PTX output has been added to common.mk
+	  
+[All SDK Packages]
+	* CUDA Driver API samples: simpleTextureDrv, matrixMulDrv, and threadMigration
+	  have been updated to reflect changes:
+		- Previously when compiling these CUDA SDK samples, gcc would generate a 
+		  compilation error when building on a 64-bit Linux OS if the 32-bit glibc 
+		  compatibility libraries were not previously installed.  This SDK release
+		  addresses this problem.  The CUDA Driver API samples have been modified 
+		  and solve this problem by casting device pointers correctly before 
+		  being passed to CUDA kernels.
+		- When setting parameters for CUDA kernel functions, the address offset 
+		  calculation is now properly aligned so that CUDA code and applications
+		  will be compatible on 32-bit and 64-bit Linux platforms.
+		- The new CUDA Driver API samples by default build CUDA kernels with the 
+		  output as PTX instead of CUBIN.  The CUDA Driver API samples now use 
+		  PTXJIT to load the CUDA kernels and launch them.
+
+	* Added sample pitchLinearTexture that shows how to texture from pitch linear
+	  memory
+
+Release 2.2 Final
+[Windows and Linux SDK]
+	* Supports CUDA Event Blocking Stream Synchronization (CU_CTX_BLOCKING_SYNC) on Linux and Windows
+
+[All SDK Packages]
+	* Added Mandelbrot (Julia Set), deviceQueryDrv, radixSort, SobolQRNG, threadFenceReduction
+	* New CUDA 2.2 capabilities: 
+		- supports zero-memory copy (GT200, MCP79) 
+			* simpleZeroCopy SDK sample
+		- supports OS allocated pinned memory (write combined memory).  Test this by:
+			> bandwidthTest -memory=PINNED -wc
+
+Release 2.1
+[Windows SDK]
+	* Projects that depend on paramGL now build the paramGL source files instead of 
+	  statically linking with paramGL*.lib.
+
+[All SDK Packages]
+	* CUDA samples that use OpenGL interop now call cudaGLSetGLDevice after the GL context is created.
+	  This ensures that OpenGL/CUDA interop gets the best possible performance possible.
+	* Bug fixes
+
+Release 2.1 Beta
+[Windows SDK]
+	* Now supports Visual Studio 2008 projects, all samples also include VS2008
+	* Removed Visual Studio 2003.NET projects
+	* Added Visual Studio CUDA.rules to support *.cu files.  Most projects now use this
+	  rule with VS2005 and VS2008 projects.
+	* Default CUDA SDK installation folder is under "All Users" or "Current User" in a sub-folder 
+	  "Application Data\NVIDIA Corporation\NVIDIA GPU Computing SDK".  See section "III. Known issues" for 
+	  more details.
+
+[Mac and Linux SDK]
+	* For CUDA samples that use the Driver API, you must install the Linux 32-bit
+	  compatibility (glibc) binaries on Linux 64-bit Platforms.  See Known issues in about
+	  section IV on how to do this.
+
+[All SDK Packages]
+	* Added CUDA smokeParticles (volumetric particle shadows samples)
+	* Note: added cutil_inline.h for CUDA functions as an alternative to using the
+			cutil.h macro definitions
+
+Release 2.0 Beta2
+[Windows SDK]
+	* 2 new code samples:
+	  cudaVideoDecode and simpleVoteIntrinsics
+
+Release 2.0 Beta
+[All SDK Packages]
+	* Updated to the 2.0 CUDA Toolkit
+	* CUT_DEVICE_INIT macro modified to take command line arguments. All samples now
+	  support specifying the CUDA device to run on from the command line (“-device=n”).
+	* deviceQuery sample: Updated to query number of multiprocessors and overlap
+	  flag.
+	* multiGPU sample: Renamed to simpleMultiGPU.
+	* reduction, MonteCarlo, and binomialOptions samples: updated with optional
+	  double precision support for upcoming hardware.
+	* simpleAtomics sample: Renamed to simpleAtomicIntrinsics.
+	* 7 new code samples: 
+	  dct8x8, quasirandomGenerator, recursiveGaussian, simpleD3D9Texture,
+	  simpleTexture3D, threadMigration, and volumeRender
+  
+[Windows SDK]
+	* simpleD3D sample: Renamed to simpleD3D9 and updated to the new Direct3D
+	  interoperability API.
+	* fluidsD3D sample: Renamed to fluidsD3D9 and updated to the new Direct3D
+	  interoperability API.
+
+Release 1.1
+* Updated to the 1.1 CUDA Toolkit
+* Removed isInteropSupported() from cutil: graphics interoperability now works
+  on multi-GPU systems
+* MonteCarlo sample: Improved performance.  Previously it was very fast for
+  large numbers of paths and options, now it is also very fast for 
+  small- and medium-sized runs.
+* Transpose sample: updated kernel to use 2D shared memory array for clarity, 
+  and optimized bank conflicts.
+* 15 new code samples: 
+  asyncAPI, cudaOpenMP, eigenvalues, fastWalshTransform, histogram256,
+  lineOfSight, Mandelbrot, marchingCubes, MonteCarloMultiGPU, nbody, oceanFFT,
+  particles, reduction, simpleAtomics, and simpleStreams
+
+Release 1.0
+* Added support for CUDA on the MAC
+* Updated to the 1.0 CUDA Toolkit.
+* Added 4 new code samples: convolutionTexture, convolutionFFT2D,
+  histogram64, and SobelFilter.
+* All graphics interop samples now call the cutil library function 
+  isInteropSupported(), which returns false on machines with multiple CUDA GPUs,
+  currently (see above).
+* When compiling in DEBUG mode, CU_SAFE_CALL() now calls cuCtxSynchronize() and
+  CUDA_SAFE_CALL() and CUDA_CHECK_ERROR() now call cudaThreadSynchronize() in
+  order to return meaningful errors. This means that performance might suffer in
+  DEBUG mode.
+
+Release 0.9
+* Updated to version 0.9 of the CUDA Toolkit.
+* Added 6 new code samples: MersenneTwister, MonteCarlo, imageDenoising, 
+  simpleTemplates, deviceQuery, alignedTypes, and convolutionSeparable.
+* Removed 3 old code samples:
+  - vectorLoads and loadUByte replaced by alignedTypes;
+  - convolution replaced by convolutionSeparable.
+
+Release 0.8.1 beta
+* Standardized project and file naming conventions. Several project names 
+  changed as a result.
+* cppIntegration output now matches the other samples ("Test PASSED").
+* Modified transpose16 sample to transpose arbitrary matrices efficiently, and
+  renamed it to transpose.
+* Added 11 new code samples: bandwidthTest, binomialOptions, BlackScholes, 
+  boxFilter, convolution, dxtc, fluidsGL, multiGPU, postProcessGL, 
+  simpleTextureDrv, and vectorLoads.
+
+Release 0.8 beta
+* First public release.
+
+
+--------------------------------------------------------------------------------
+VII. OS Platforms and Compilers Supported
+--------------------------------------------------------------------------------
+
+[Windows Platforms]
+	OS Platform Support with CUDA 4.1
+		* No changes
+	
+	OS Platform Support with CUDA 4.0
+		* New Compilers supported
+			o Visual Studio 10 (2010) 
+		* Continued supported compilers
+			o Visual Studio 9  (2008) 
+			o Visual Studio 8  (2005) 
+		* Continued supported OS
+			Windows XP, Windows Vista, Windows 7
+			Windows Server 2008 and 2008 R2
+
+	OS Platform Support added to CUDA 3.0 Release
+		* Windows 7 32 & 64
+		* Windows Server 2008 and 2008 R2
+
+	OS Platform Support to CUDA 2.2
+		* Vista 32 & 64bit, WinXP 32 & 64-bit
+			  o Visual Studio 8 (2005)
+			  o Visual Studio 9 (2008) 
+		
+[Mac Platforms]
+	OS Platform Support with CUDA 4.2
+	    * Official support for Mac OSX 10.7.3
+
+		OS Platform Support with CUDA 4.1
+	    * No changes
+
+	OS Platform Support with CUDA 4.0
+		* New OS Platforms added
+			MacOS X Lion 10.7.x
+		* Continued OS Platforms
+			MacOS X SnowLeopard 10.6.x
+		* Platforms no longer supported
+			MacOS X Leopard 10.5.x
+
+	OS Platform Support added to CUDA 3.2 
+		* MacOS X SnowLeopard 10.6.4
+		* MacOS X SnowLeopard 10.6.5
+
+	OS Platform Support added to CUDA 3.1 Beta
+		* MacOS X SnowLeopard 10.6.3
+			  32/64-bit for CUDA Driver API
+			  32/64-bit for CUDA Runtime API
+
+	OS Platform Support added to CUDA 3.0 Release
+		* MacOS X SnowLeopard 10.6.x
+			  32/64-bit for CUDA Driver API
+			  32-bit for CUDA Runtime API
+				  
+	OS Platform Support added to CUDA 3.0 Beta 1
+		* MacOS X SnowLeopard 10.6 (32-bit)
+				  
+	OS Platform Support added to CUDA 2.2
+		* MacOS X Leopard 10.5.6+ (32-bit)
+			  o (llvm-)gcc 4.2 Apple 
+
+[Linux Platforms]
+	OS Platform Support with CUDA 4.2
+		* New OS Platforms added
+			OpenSUSE-11.2 (gcc 4.5.1, glibc 2.11.3)
+		* Platforms no longer supported 
+			OpenSUSE-11.2 (gcc 4.4.1, glibc 2.10.1)
+		
+	OS Platform Support with CUDA 4.1
+		* New OS Platforms added
+			   Ubuntu 11.04,
+			   Fedora 14,
+			   RHEL-5.5, 5.6, 5.7 (32-bit and 64-bit)
+			   RHEL-6.X (6.0, 6.1) (64-bit only),
+			   ICC Compiler 11.1 (32-bit and 64-bit linux)
+		* Continued OS Platforms
+			   SLES 11.1,
+			   Ubuntu 10.04,
+			   OpenSUSE-11.2 (gcc  4.4.1, glibc 2.10.1)
+		* Platforms no longer supported 
+			   Ubuntu 10.10,
+			   Fedora 13,
+			   RHEL-4.8
+					   
+	OS Platform Support with CUDA 4.0
+		* New OS Platforms added
+			   SLES11-SP1,
+			   RHEL-6.0 (64-bit only),
+			   Ubuntu 10.10
+		* Continued OS Platforms
+			   OpenSUSE-11.2
+			   Fedora 13,
+			   RHEL-4.8 (64-bit only),
+			   RHEL-5.5
+		* Platforms no longer supported 
+			   RHEL-4.8 (32-bit only)
+			   Ubuntu 10.04,
+			   SLED11-SP1
+					   
+	OS Platform Support added to CUDA 3.2
+		* Additional Platform Support Linux 32 & 64: 
+			   Fedora 13,
+			   Ubuntu 10.04,
+			   RHEL-5.5,
+			   SLED-11SP1,
+			   ICC (64-bit linux only?)
+		* Platforms no longer supported
+			   Fedora 12,
+			   Ubuntu 9.10
+			   RHEL-5.4,
+			   SLED11
+
+	OS Platform Support added to CUDA 3.1
+		* Additional Platform Support Linux 32 & 64: 
+			   Fedora 12,
+			   OpenSUSE-11.2,
+			   Ubuntu 9.10
+			   RHEL-5.4
+		* Platforms no longer supported 
+			   Fedora 10,
+			   OpenSUSE-11.1,
+			   Ubuntu 9.04
+					   
+	OS Platform Support added to CUDA 3.0
+		* Linux Distributions 32 & 64: 
+			RHEL-4.x (4.8),
+			RHEL-5.x (5.3), 
+			SLED-11
+			Fedora10,         
+            Ubuntu 9.04,
+			OpenSUSE 11.1
+			  o gcc 3.4, gcc 4 
