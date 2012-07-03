@@ -1,0 +1,16 @@
+./postProcessGL Starting...
+
+(Interactive OpenGL Demo)
+Creating a Texture render target GL_RGBA16F_ARB
+Shader compilation error: Fragment info
+-------------
+0(4) : warning C7533: global variable gl_Color is deprecated after version 120
+
+CUDA GL Post Processing (512 x 512): 6.0 fps
+CUDA GL Post Processing (512 x 512): 18.8 fps
+CUDA GL Post Processing (512 x 512): 20.8 fps
+CUDA GL Post Processing (512 x 512): 21.4 fps
+CUDA GL Post Processing (512 x 512): 21.5 fps
+CUDA GL Post Processing (512 x 512): 77.1 fps
+CUDA GL Post Processing (512 x 512): 339.5 fps
+radius = 9
